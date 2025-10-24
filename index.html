@@ -63,6 +63,31 @@
     a:hover {
       text-decoration: underline;
     }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 1rem;
+      background-color: #1c2128;
+      border: 1px solid #30363d;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    
+    th, td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid #30363d;
+      text-align: left;
+      vertical-align: top;
+    }
+    
+    th {
+      background-color: #161b22;
+      color: #58a6ff;
+    }
+    
+    tr:last-child td {
+      border-bottom: none;
+    }
   </style>
 </head>
 <body>
@@ -74,8 +99,35 @@
   <main>
     <section>
       <h2>Week 1: System Planning and Distribution Selection</h2>
-      <p>Plan your operating system deployment and justify technical decisions.</p>
+      <p>1.</p>
       <img src="OSArchitectureDiagram.png" alt="Systems Architecture Diagram" align="middle">
+      <p>2.</p>
+      <table>
+        <thead>
+          <tr>
+            <th>Distribution</th>
+            <th>Pros</th>
+            <th>Cons</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Ubuntu Server</strong></td>
+            <td>Widely supported, stable LTS, large community, compatible with VirtualBox</td>
+            <td>Slightly heavier base install</td>
+          </tr>
+          <tr>
+            <td><strong>Debian</strong></td>
+            <td>Extremely stable, secure, minimal setup</td>
+            <td>Older packages, smaller repositories for new tools</td>
+          </tr>
+          <tr>
+            <td><strong>CentOS</strong></td>
+            <td>Enterprise-level stability, SELinux enabled by default</td>
+            <td>Steeper learning curve, enterprise-focused tools</td>
+          </tr>
+        </tbody>
+      </table>
     </section>
   </main>
 
