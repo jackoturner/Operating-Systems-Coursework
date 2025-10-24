@@ -137,6 +137,13 @@
       <p>The workstation used is my host operating system running on macOS. MacOS provides built in terminal SSH access to the server virtual machine; 
       this method ensures that all administration is performed remotely, and aligning with professional practices. VirtualBox is used to host the server image and isolating it from the host environment.</p>
       <h3>Network Configuration Documentation</h3>
+      <p>For my network configuration, I used <strong>VirtualBox 7.2.4</strong> on macOS to create a host-only network 
+      named <code>HostInterfaceNetworking-vboxnet0</code>. This configuration allows my workstation and the headless 
+      Linux server to communicate directly without exposing the virtual machine to external networks. The VirtualBox 
+      DHCP server was automatically assigned the address <code>192.168.56.100</code>, with a dynamic IP range from 
+      <code>192.168.56.101</code> to <code>192.168.56.254</code> and a subnet mask of <code>255.255.255.0</code>. 
+      Using this setup, the server obtained an IP address within the host-only range, ensuring a secure, isolated 
+      environment for SSH access.</p>
       <h3>Command Line Interface Testing</h3>
     </section>
   </main>
