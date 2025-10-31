@@ -151,10 +151,36 @@
       SSH traffic from the host (MacBook) to the guest virtual machine. This forwards connections from 
       <code>127.0.0.1:2222</code> on the host to port <code>22</code> on the virtual machine, allowing me to 
       connect locally using the command <code>ssh -p 2222 username@127.0.0.1</code>. This approach avoids 
-      university network restrictions while maintaining a realistic remote management workflow. 
-      It replicates a professional SSH connection setup within an isolated environment, providing both 
-      security and flexibility for system administration tasks.</p>
-      <h3>Command Line Interface Testing</h3>
+      university network restrictions while maintaining a realistic remote management workflow.</p>
+      <h3>System Specifications</h3>
+      <p>I used the <code>uname, free, df -h, ip addr, lsb_release</code> commands to provide the following specifications.</p>
+      <pre><code>
+      # uname -a
+      Linux
+      
+      # free -h
+                    total        used        free      shared  buff/cache   available
+      Mem:         2001372      246300     1165364        1024      678632     1755072
+      Swap:              0           0           0
+      
+      # df -h
+      Filesystem      Size  Used Avail Use% Mounted on
+      tmpfs           196M  1.2M  195M   1% /run
+      /dev/sda2        24G  2.7G   20G  12% /
+      tmpfs           981M     0  981M   0% /dev/shm
+      /dev/sda1       1.1G  6.4M  1.0G   1% /boot/efi
+      tmpfs           196M  4.0K  196M   1% /run/user/1000
+      
+      # ip addr
+      1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000
+          inet 127.0.0.1/8 scope host lo
+      2: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000
+          inet 10.0.2.15/24 scope global dynamic enp0s8
+      
+      # lsb_release -a
+      Distributor ID: Ubuntu
+      Description:    Ubuntu 22.04 LTS
+      </code></pre>
     </section>
   </main>
 
