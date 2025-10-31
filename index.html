@@ -258,19 +258,21 @@
       <p>The threat model outlines three seperate security concerns and suggests mitigation strategies for each of them.</p>
       <ul>
         <li>
-          <b><strong>Brute-force SSH attacks:</strong> This occurs when an attacker repeatedly attempts to guess login credentials to gain remote access. 
+          <strong>Brute-force SSH attacks:</strong> This occurs when an attacker repeatedly attempts to guess login credentials to gain remote access. 
           To prevent this, I disabled root login, reduced the number of allowed authentication attempts, and configured the firewall to restrict 
-          repeated SSH connections, significantly lowering the chance of unauthorised access.</b>
+          repeated SSH connections, significantly lowering the chance of unauthorised access.
         </li>
+        <br>
         <li>
-          <b><strong>Privilege escalation:</strong> This threat involves a regular user gaining administrative access, often through misconfigured permissions 
+          <strong>Privilege escalation:</strong> This threat involves a regular user gaining administrative access, often through misconfigured permissions 
           or exploitation of vulnerabilities. I mitigated this by enforcing the principle of least privilege, creating dedicated non-root user accounts, 
-          and carefully controlling <code>sudo</code> access to minimise the risk of elevated privilege misuse.</b>
+          and carefully controlling <code>sudo</code> access to minimise the risk of elevated privilege misuse.
         </li>
+        <br>
         <li>
-          <b><strong>Unpatched software vulnerabilities:</strong> Outdated packages can be exploited by attackers to compromise system security. 
+          <strong>Unpatched software vulnerabilities:</strong> Outdated packages can be exploited by attackers to compromise system security. 
           To address this, I enabled automatic updates using <code>unattended-upgrades</code> and scheduled periodic manual patch reviews to ensure 
-          that the system remains fully updated with the latest security fixes.</b>
+          that the system remains fully updated with the latest security fixes.
         </li>
       </ul>
     </section>
