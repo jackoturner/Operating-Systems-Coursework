@@ -333,6 +333,16 @@
         <li><strong>I/O-intensive:</strong> The <code>dd if=/dev/zero of=testfile bs=1M count=500</code> file creation test is expected to generate
         high disk write throughput and moderate CPU usage, with minimal RAM and no network activity.</li>
       </ul>
+      <h3>Monitoring Strategy</h3>
+      <p>To measure system performance during each workload, I created a monitoring strategy using a range of 
+      command-line tools that provide real-time system metrics. CPU and memory usage will be observed using 
+      <code>top</code> and <code>vmstat</code>, which allow me to track load averages, process activity, and 
+      overall memory utilisation. Disk performance will be monitored using <code>iostat</code> and <code>df -h</code> 
+      to measure throughput and file system usage, while network-intensive workloads will be analysed using 
+      <code>ss -tuln</code> and <code>ping</code> to monitor socket activity and latency. Logs will be collected using 
+      <code>journalctl</code> to identify any unusual behaviour or performance issues. Each workload will be measured 
+      before, during, and after execution to compare performance changes across different scenarios and identify 
+      any potential bottlenecks.</p>
     </section>
   </main>
 
