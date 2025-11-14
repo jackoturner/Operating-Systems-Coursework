@@ -168,7 +168,7 @@
       To enable secure remote administration, I created a <strong>port forwarding rule</strong> that maps 
       SSH traffic from the host (MacBook) to the guest virtual machine. This forwards connections from 
       <code>127.0.0.1:2222</code> on the host to port <code>22</code> on the virtual machine, allowing me to 
-      connect locally using the command <code>ssh -p 2222 username@127.0.0.1</code>. This approach avoids 
+      connect locally using the command <code>ssh -p 2222 admin@127.0.0.1</code>. This approach avoids 
       university network restrictions while maintaining a realistic remote management workflow.</p>
       <h3>System Specifications</h3>
       <p>I used the <code>uname, free, df -h, ip addr, lsb_release</code> commands to provide the following specifications.</p>
@@ -280,6 +280,8 @@
       <h2>Week 3: Application Selection for Performance Testing</h2>
       <h4>14/11/2025</h4>
       <h3>Application Selection Matrix</h3>
+      <p>For performance evaluation, I selected a variety of applications that each represent a different
+      type of workload. These applications allow me to test CPU, memory, network load and disk I/O to understand how the system performs under different stress conditions.</p>
       <table>
         <thead>
           <tr>
@@ -311,6 +313,15 @@
           </tr>
         </tbody>
       </table>
+      <h3>Installation Documentation</h3>
+      <p></p>All applications were installed remotely over SSH to maintain a headless, command-line focused
+      administration environment. The following commands were executed after connecting to the server via:
+      <code>ssh -p 2222 admin@127.0.0.1</code>.</p>
+      <pre>Update any repositories <code>sudo apt install</code></pre>
+      <pre>Install network testing tools <code>sudo apt install -y iperf3</code></pre>
+      <pre>Intsall stress testing tools <code>sudo apt install -y stress-ng</code></pre>
+      <pre>Install I/O performance analyser <code>sudo apt intall -y fio</code></pre>
+      
     </section>
   </main>
 
