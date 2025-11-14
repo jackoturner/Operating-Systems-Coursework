@@ -321,7 +321,18 @@
       <pre>Install network testing tools <code>sudo apt install -y iperf3</code></pre>
       <pre>Intsall stress testing tools <code>sudo apt install -y stress-ng</code></pre>
       <pre>Install I/O performance analyser <code>sudo apt intall -y fio</code></pre>
-      
+      <h3>Resource Profiles and Usage</h3>
+      <ul>
+        <li><strong>CPU-intensive:</strong> The <code>stress-ng --cpu 2</code> test is expected to cause
+        near 100% CPU utilisation on the selected cores, with minimal RAM, disk, or network usage.</li>
+        <li><strong>RAM-intensive:</strong> The <code>stress-ng --vm 1 --vm-bytes 512M</code> test should significantly
+        increase memory usage, potentially triggering swapping if RAM limits are reached, while CPU and
+        disk activity remain moderate.</li>
+        <li><strong>Network-intensive:</strong> Using <code>iperf3</code> should produce high network
+        throughput and increased socket activity, while CPU, RAM, and disk remain lightly used.</li>
+        <li><strong>I/O-intensive:</strong> The <code>dd if=/dev/zero of=testfile bs=1M count=500</code> file creation test is expected to generate
+        high disk write throughput and moderate CPU usage, with minimal RAM and no network activity.</li>
+      </ul>
     </section>
   </main>
 
