@@ -276,6 +276,42 @@
         </li>
       </ul>
     </section>
+    <section>
+      <h2>Week 3: Application Selection for Performance Testing</h2>
+      <h4>14/11/2025</h4>
+      <h3>Application Selection Matrix</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Application</th>
+            <th>Workload Type</th>
+            <th>Justification</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>stress-ng --cpu 2</code></td>
+            <td>CPU-intensive</td>
+            <td>Generates sustained CPU load, good for analysing processor performance.</td>
+          </tr>
+          <tr>
+            <td><code>stress-ng --vm 1 --vm-bytes 512M</code></td>
+            <td>RAM-intensive</td>
+            <td>Allows controlled memory allocation to test RAM pressure and swapping.</td>
+          </tr>
+          <tr>
+            <td><code>iperf3</code></td>
+            <td>Network-intensive</td>
+            <td>Measures network throughput and latency under controlled conditions.</td>
+          </tr>
+          <tr>
+            <td><code>dd if=/dev/zero of=testfile bs=1M count=500</code></td>
+            <td>I/O-intensive</td>
+            <td>Creates a large file to simulate heavy disk write operations.</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 
   <footer>
