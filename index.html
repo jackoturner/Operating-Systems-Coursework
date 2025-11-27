@@ -95,6 +95,7 @@
     tr:last-child td {
       border-bottom: none;
     }
+    
     pre {
     background-color: #000000;
     padding: 1rem;
@@ -105,6 +106,7 @@
     word-wrap: break-word;
     margin: 1rem 0;
     }
+    
     code {
     font-family: "Fira Code", "Courier New", monospace;
     background-color: #000000;
@@ -112,6 +114,12 @@
     border-radius: 4px;
     border: 1px solid #30363d;
     font-size: 1rem;
+    }
+    
+    fixed-img {
+    width: 400px;       
+    height: auto;         
+    display: inline-block;
     }
   </style>
 </head>
@@ -354,7 +362,7 @@
       <p>In this section, I configured the server to use key-based SSH authentication instead of passwords. I generated 
         a secure key pair, added my public key to the server, and disabled password authentication in the SSH configuration. 
         This significantly improved the security of remote access by preventing brute-force login attempts.</p>
-      <img src="PhaseFourSection1.png" alt="Configure SSH" align="middle">
+      <img src="PhaseFourSection1.png" alt="Configure SSH" align="middle" class="fixed-img">
       <h3>Configure Firewall</h3>
       <p>Here, I implemented a strict firewall policy to ensure that SSH access is only permitted from my workstation. 
         By allowing a single source IP, I reduced the server’s attack surface and ensured that no other device can attempt an SSH connection.
