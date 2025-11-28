@@ -369,35 +369,39 @@
         a secure key pair, added my public key to the server, and disabled password authentication in the SSH configuration. 
         This significantly improved the security of remote access by preventing brute-force login attempts.</p>
       <img src="PhaseFourSection1.png" alt="Configure SSH" align="middle" class="fixed-img">
-      <img src="PhaseFourSection1Config.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection1Config.png" alt="Configure SSH Config" align="middle" class="fixed-img">
       <h3>Configure Firewall</h3>
       <p>Here, I implemented a strict firewall policy to ensure that SSH access is only permitted from my workstation. 
         By allowing a single source IP, I reduced the server’s attack surface and ensured that no other device can attempt an SSH connection.
         This follows the principle of least privilege.</p>
-      <img src="PhaseFourSection2.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection2.png" alt="Configure Firewall" align="middle" class="fixed-img">
       <h3>Manage Users</h3>
       <p>In this section, I created a dedicated non-root administrative user and granted them the necessary sudo privileges. 
         This allowed me to disable direct root login while still being able to perform administrative tasks when required. 
         This step improved accountability and aligned the system with Linux security best practices.</p>
-      <img src="PhaseFourSection3.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection3.png" alt="Manage Users" align="middle" class="fixed-img">
       <h3>SSH Access Evidence</h3>
       <p>Here, I collected screenshots showing that I could successfully connect to the server via SSH after applying the security changes.
         These screenshots provide proof that key-based authentication works and that I can administer the system without relying on insecure methods.</p>
-      <img src="PhaseFourSection4.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection4.png" alt="SSH Access Evidence" align="middle" class="fixed-img">
       <h3>Configuration Files</h3>
       <p>In this section, I documented the changes I made to important configuration files, such as <code>sshd_config</code>. I included “before and after” comparisons
         to clearly show how I modified system settings and explain why each change was necessary for security.</p>
       <p>Before:</p>
-      <img src="PhaseFourSection5Before.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection5Before.png" alt="Configuration Files Before" align="middle" class="fixed-img">
       <p>After:</p>
-      <img src="PhaseFourSection5After.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection5After.png" alt="Configuration Files After" align="middle" class="fixed-img">
       <h3>Firewall Documentation</h3>
       <p>For this part, I captured the full firewall ruleset using commands such as ufw status numbered. I explained what each rule does and how it contributes to securing the server.
         This documentation provides a clear overview of the system’s network-level protections.</p>
-      <img src="PhaseFourSection6.png" alt="Configure SSH" align="middle" class="fixed-img">
+      <img src="PhaseFourSection6.png" alt="Firewall Documentation" align="middle" class="fixed-img">
       <h3>Remote Administration Evidence demonstrating commands executed via SSH</h3>
       <p>In the final section, I demonstrated that all system changes were carried out remotely via SSH, in line with the module’s requirements. 
         I gathered evidence of administrative commands being executed from my workstation to show that I managed the server headlessly without relying on the VirtualBox console.</p>
+      <img src="PhaseFourSection7Config.png" alt="SSH Evidence Config File" align="middle" class="fixed-img">
+      <img src="PhaseFourSection7UFW.png" alt="SSH Evidence Firewall" align="middle" class="fixed-img">
+      <img src="PhaseFourSection7Update.png" alt="SSH Evidence Update" align="middle" class="fixed-img">
+      <img src="PhaseFourSection7Exit.png" alt="SSH Evidence Exit" align="middle" class="fixed-img">
     </section>
   </main>
 
