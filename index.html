@@ -273,19 +273,19 @@
       <ul>
         <li>
           <strong>Brute-force SSH attacks:</strong> This occurs when an attacker repeatedly attempts to guess login credentials to gain remote access. 
-          To prevent this, I disabled root login, reduced the number of allowed authentication attempts, and configured the firewall to restrict 
+          To prevent this, I will disable root login, reduced the number of allowed authentication attempts, and configured the firewall to restrict 
           repeated SSH connections, significantly lowering the chance of unauthorised access.
         </li>
         <br>
         <li>
           <strong>Privilege escalation:</strong> This threat involves a regular user gaining administrative access, often through misconfigured permissions 
-          or exploitation of vulnerabilities. I mitigated this by enforcing the principle of least privilege, creating dedicated non-root user accounts, 
+          or exploitation of vulnerabilities. I will mitigate this by enforcing the principle of least privilege, creating dedicated non-root user accounts, 
           and carefully controlling <code>sudo</code> access to minimise the risk of elevated privilege misuse.
         </li>
         <br>
         <li>
           <strong>Unpatched software vulnerabilities:</strong> Outdated packages can be exploited by attackers to compromise system security. 
-          To address this, I enabled automatic updates using <code>unattended-upgrades</code> and scheduled periodic manual patch reviews to ensure 
+          To address this, I will enable automatic updates using <code>unattended-upgrades</code> and scheduled periodic manual patch reviews to ensure 
           that the system remains fully updated with the latest security fixes.
         </li>
       </ul>
