@@ -410,6 +410,34 @@
     <section>
       <h2>Week 5: Advanced Security and Monitoring Infrastructure</h2>
       <h4>28/11/2025</h4>
+      <h3>Implementing Access Control Using AppArmor</h3>
+      <p>To strengthen the server’s security posture, I enabled mandatory access control using AppArmor, which restricts program behaviour through profile-based rule enforcement. 
+        This adds an additional layer of defence beyond standard UNIX permissions, ensuring that even if an application is compromised, its actions remain tightly controlled by its assigned security profile. 
+        I installed the necessary AppArmor tools using <code>sudo apt update</code> and <code>sudo apt install -y apparmor apparmor-utils</code>, then ensured the service was active with <code>sudo systemctl enable --now apparmor</code>. 
+        To generate evidence for my journal and confirm that AppArmor was correctly enforcing policies, I used <code>sudo aa-status</code> to list all active profiles and their modes. 
+        This provides a clear demonstration of how access control is applied at the system level and how profile enforcement can be monitored and reported as part of continuous security management.</p>
+      <h3>Configuring Automatic Security Updates</h3>
+      <p>To ensure the server stays protected against newly discovered vulnerabilities, I configured automated security updates using the unattended-upgrades package.
+        Automated patching is essential for reducing the window of exposure caused by delayed manual updates, especially on headless or remotely administered systems.
+        I installed the update automation tools with <code>sudo apt install -y unattended-upgrades apt-listchanges</code> and enabled them using <code>sudo dpkg-reconfigure --priority=low unattended-upgrades</code>, 
+        which configures the system to automatically apply security patches. I verified that the service was functioning properly with <code>sudo systemctl enable --now unattended-upgrades</code> and <code>sudo systemctl status unattended-upgrades</code>, 
+        then collected evidence of recent patch activity using <code>sudo journalctl -u unattended-upgrades --no-pager | tail -n 50</code>. These commands demonstrate that the system is consistently receiving security patches without manual intervention,
+        strengthening long-term system resilience.</p>
+      <h3>Configure fail2ban</h3>
+      <p>To protect the server against brute-force attacks, I deployed and configured fail2ban, which automatically monitors authentication logs and bans IP addresses that repeatedly fail login attempts. This significantly reduces the attack surface for 
+        SSH and protects against automated intrusion attempts, which are common across public networks. I began by installing fail2ban with <code>sudo apt install -y fail2ban</code>, then created a local jail configuration using 
+        <pre><code style="border: 0px">
+          sudo bash -c 'cat > /etc/fail2ban/jail.d/ssh.local EOF
+          [sshd]
+          enabled = true
+          port = 22
+          filter = sshd
+          logpath = /var/log/auth.log
+          maxretry = 3
+          bantime = 3600
+          EOF'</code></pre>
+        to enable SSH protection, set a maximum of three failed attempts, and apply a one-hour ban time. I activated the service with <code>sudo systemctl restart fail2ban</code> and verified its operation using both <code>sudo fail2ban-client status</code> 
+        and <code>sudo fail2ban-client status sshd</code>. These commands confirm that fail2ban is actively monitoring <code>/var/log/auth.log</code> and automatically enforcing bans, providing a strong intrusion detection and mitigation mechanism for the server.</p>
     </section>
   </main>
 
