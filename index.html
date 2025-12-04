@@ -439,7 +439,9 @@
         to enable SSH protection, set a maximum of three failed attempts, and apply a one-hour ban time. I activated the service with <code>sudo systemctl restart fail2ban</code> and verified its operation using both <code>sudo fail2ban-client status</code> 
         and <code>sudo fail2ban-client status sshd</code>. These commands confirm that fail2ban is actively monitoring <code>/var/log/auth.log</code> and automatically enforcing bans, providing a strong intrusion detection and mitigation mechanism for the server.</p>
       <h3>Security Baseline Verification Script</h3>
-      <pre><code>
+      <p>The <code>security-baseline.sh</code> script runs on the server and automatically checks that all security controls from weeks 4 and 5 are correctly configured. It verifies AppArmor, automatic updates, fail2ban, SSH hardening, firewall rules, and authorised keys. 
+        This script is needed because it provides a quick, repeatable way to confirm that the system’s security posture is stable and has not drifted from the intended configuration.</p>
+      <pre><code style="border: 0px">
         #!/bin/bash
         # security-baseline.sh
         # Purpose: verify the server's security configuration (Phase 4 & 5). Run as root or with sudo.
@@ -533,6 +535,59 @@
       <img src="VerificationScript3.png" alt="Verification Script 3" align="middle" class="fixed-img">
       <img src="VerificationScript4.png" alt="Verification Script 4" align="middle" class="fixed-img">
       <img src="VerificationScript5.png" alt="Verification Script 5" align="middle" class="fixed-img">
+      <h3>Remote Monitoring Script</h3>
+      <p>The <code>monitor-server.sh</code> script runs from my workstation and connects to the server via SSH to collect live performance and security metrics. It captures information such as memory usage,
+        disk space, active processes, and recent authentication logs, saving everything into a timestamped report. This script is important because it allows remote health monitoring without direct server access,
+        demonstrating automated administration and early issue detection.</p>
+      <pre><code style="border: 0px">
+        #!/bin/bash
+        # monitor-server.sh
+        # Connect to server via SSH and collect performance metrics for remote monitoring.
+        # ./monitor-server.sh admin@127.0.0.1 -p 2222
+        
+        set -euo pipefail
+        
+        # Parse args (simple)
+        REMOTE="${1:-admin@127.0.0.1}"
+        SSH_OPTS="-p 2222 -o BatchMode=yes -o StrictHostKeyChecking=accept-new"
+        OUTDIR="./monitor-output"
+        mkdir -p "$OUTDIR"
+        TIMESTAMP=$(date -u +"%Y%m%dT%H%M%SZ")
+        OUTFILE="$OUTDIR/metrics-$TIMESTAMP.txt"
+        
+        echo "Collecting metrics from $REMOTE at $TIMESTAMP"
+        {
+          echo "==== Host info ===="
+          ssh $SSH_OPTS "$REMOTE" 'hostnamectl; uname -a'
+        
+          echo
+          echo "==== Memory ===="
+          ssh $SSH_OPTS "$REMOTE" 'free -h'
+        
+          echo
+          echo "==== Disk ===="
+          ssh $SSH_OPTS "$REMOTE" 'df -h'
+        
+          echo
+          echo "==== Top processes (snapshot) ===="
+          ssh $SSH_OPTS "$REMOTE" 'ps -eo pid,ppid,cmd,%mem,%cpu --sort=-%cpu | head -n 15'
+        
+          echo
+          echo "==== Network connections ===="
+          ssh $SSH_OPTS "$REMOTE" 'ss -tuln | head -n 20'
+        
+          echo
+          echo "==== Recent auth logs (last 100 lines) ===="
+          ssh $SSH_OPTS "$REMOTE" 'sudo tail -n 100 /var/log/auth.log || sudo journalctl -u ssh -n 100 --no-pager'
+        
+          echo
+          echo "==== Security baseline (quick) ===="
+          ssh $SSH_OPTS "$REMOTE" 'sudo /usr/local/bin/security-baseline.sh || echo "security-baseline.sh not present"'
+        
+        } > "$OUTFILE"
+        
+        echo "Saved metrics to $OUTFILE"
+      </code></pre>
     </section>
   </main>
 
