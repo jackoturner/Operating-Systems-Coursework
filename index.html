@@ -438,6 +438,96 @@
           EOF'</code></pre>
         to enable SSH protection, set a maximum of three failed attempts, and apply a one-hour ban time. I activated the service with <code>sudo systemctl restart fail2ban</code> and verified its operation using both <code>sudo fail2ban-client status</code> 
         and <code>sudo fail2ban-client status sshd</code>. These commands confirm that fail2ban is actively monitoring <code>/var/log/auth.log</code> and automatically enforcing bans, providing a strong intrusion detection and mitigation mechanism for the server.</p>
+      <h3>Security Baseline Verification Script</h3>
+      <pre><code>
+        #!/bin/bash
+        # security-baseline.sh
+        # Purpose: verify the server's security configuration (Phase 4 & 5). Run as root or with sudo.
+        # Usage: sudo ./security-baseline.sh
+        
+        set -euo pipefail
+        
+        # Helper: print section header
+        header() {
+          echo
+          echo "==================== $1 ===================="
+        }
+        
+        header "Date / Host"
+        date
+        hostnamectl
+        
+        header "1) AppArmor status"
+        if command -v aa-status >/dev/null 2>&1; then
+          aa-status || apparmor_status || true
+        else
+          echo "AppArmor tools not installed."
+        fi
+        
+        header "2) Unattended upgrades"
+        if systemctl is-active --quiet unattended-upgrades 2>/dev/null; then
+          echo "unattended-upgrades: active"
+          sudo journalctl -u unattended-upgrades --no-pager | tail -n 10
+        else
+          echo "unattended-upgrades: NOT active"
+        fi
+        
+        header "3) fail2ban"
+        if command -v fail2ban-client >/dev/null 2>&1; then
+          sudo fail2ban-client status || true
+          echo "SSH jail status:"
+          sudo fail2ban-client status sshd || echo "sshd jail not configured"
+        else
+          echo "fail2ban not installed."
+        fi
+        
+        header "4) SSH hardening checks"
+        SSHD_CONFIG="/etc/ssh/sshd_config"
+        echo "Checking $SSHD_CONFIG for common hardening settings..."
+        sudo grep -E "^(PermitRootLogin|PasswordAuthentication|PubkeyAuthentication|PermitEmptyPasswords|ChallengeResponseAuthentication)" "$SSHD_CONFIG" || true
+        
+        # Check that password authentication is disabled
+        if sudo grep -qE "^PasswordAuthentication\s+no" "$SSHD_CONFIG" ; then
+          echo "PasswordAuthentication disabled (OK)"
+        else
+          echo "Warning: PasswordAuthentication not set to 'no'"
+        fi
+        
+        # Check root login disabled
+        if sudo grep -qE "^PermitRootLogin\s+no" "$SSHD_CONFIG" ; then
+          echo "PermitRootLogin disabled (OK)"
+        else
+          echo "Warning: PermitRootLogin not set to 'no'"
+        fi
+        
+        header "5) UFW rules (firewall)"
+        if command -v ufw >/dev/null 2>&1; then
+          sudo ufw status verbose
+        else
+          echo "UFW not installed."
+        fi
+        
+        header "6) Authorized keys for 'admin' user"
+        ADMIN_HOME=$(getent passwd admin | cut -d: -f6 2>/dev/null || echo "/home/admin")
+        if [ -f "$ADMIN_HOME/.ssh/authorized_keys" ]; then
+          echo "authorized_keys exists:"
+          sudo ls -l "$ADMIN_HOME/.ssh/authorized_keys"
+          sudo tail -n 5 "$ADMIN_HOME/.ssh/authorized_keys"
+        else
+          echo "No authorized_keys file for admin"
+        fi
+        
+        header "7) Basic resource snapshot"
+        echo "Memory:"
+        free -h
+        echo "Disk:"
+        df -h /
+        echo "Uptime and load:"
+        uptime
+        
+        echo
+        echo "Security baseline verification complete."
+      </code></pre>
     </section>
   </main>
 
