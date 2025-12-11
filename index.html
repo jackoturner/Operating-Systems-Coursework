@@ -614,7 +614,7 @@
           <tr>
             <td>Baseline</td>
             <td>Idle System</td>
-            <td>~9% (top)</td>
+            <td>9% (top)</td>
             <td>284 MB used / 1065 MB free</td>
             <td>–</td>
             <td>–</td>
@@ -624,8 +624,8 @@
           <tr>
             <td>CPU-Intensive</td>
             <td><code>stress-ng --cpu 2</code></td>
-            <td>High CPU load (2 cores fully utilised)</td>
-            <td>~284 MB used (no major change)</td>
+            <td>~198% across 2 vCPUs</td>
+            <td>290 MB used</td>
             <td>–</td>
             <td>–</td>
             <td>–</td>
@@ -634,7 +634,7 @@
           <tr>
             <td>RAM-Intensive</td>
             <td><code>stress-ng --vm 1 --vm-bytes 512M</code></td>
-            <td>Low–moderate</td>
+            <td>~15%</td>
             <td>400 MB used / 950 MB free</td>
             <td>–</td>
             <td>–</td>
@@ -644,24 +644,30 @@
           <tr>
             <td>Disk I/O</td>
             <td><code>dd if=/dev/zero of=testfile</code></td>
-            <td>Moderate CPU load</td>
-            <td>No significant change</td>
+            <td>~35% (top)</td>
+            <td>300 MB used</td>
             <td>2.3 GB/s write throughput</td>
             <td>–</td>
             <td>–</td>
           </tr>
       
           <tr>
-            <td>Network</td>
-            <td><code>ping 10.0.2.2</code></td>
+            <td>Network Throughput</td>
+            <td><code>iperf3 -c 10.0.2.2</code></td>
+            <td>18% (top)</td>
             <td>–</td>
             <td>–</td>
-            <td>–</td>
-            <td>–</td>
-            <td>avg 0.355 ms (min 0.199 ms, max 0.639 ms)</td>
+            <td>620 Mbps (2 retransmits)</td>
+            <td>avg 0.355 ms</td>
           </tr>
         </tbody>
       </table>
+      <h3>Performance Visualisations</h3>
+      <img src="cpu-usage.png" alt="CPU Usage" align="middle" class="fixed-img">
+      <img src="ram-usage.png" alt="Ram Usage" align="middle" class="fixed-img">
+      <img src="disk-io.png" alt="Disk I/O" align="middle" class="fixed-img">
+      <img src="network.png" alt="Network" align="middle" class="fixed-img">
+      <h3>Testing Evidence</h3>
     </section>
   </main>
 
