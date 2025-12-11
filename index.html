@@ -589,6 +589,80 @@
         echo "Saved metrics to $OUTFILE"
       </code></pre>
     </section>
+    <section>
+      <h2>Week 6: Performance Evaluation and Analysis</h1>
+      <h4>5/12/2025</h4>
+      <h3>Documentation of Approach</h3>
+      <p>I conducted performance tests using selected workloads to measure CPU, memory, disk I/O, network throughput, and latency.
+        Baseline measurements were collected with monitoring tools (vmstat, free, iostat, ping). Stress tests were executed using stress-ng,
+        iperf3, and dd, with outputs captured for comparison. After identifying bottlenecks, I applied two optimisations (noatime and reduced swappiness),
+        re-ran tests, and recorded improvements. Data was organised into structured tables and visualised with charts for clear analysis</p>
+      <h3>Performance Data Table</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>Workload</th>
+            <th>Test Type</th>
+            <th>CPU Usage</th>
+            <th>Memory Usage</th>
+            <th>Disk I/O</th>
+            <th>Network</th>
+            <th>Latency</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Baseline</td>
+            <td>Idle System</td>
+            <td>~9% (top)</td>
+            <td>284 MB used / 1065 MB free</td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+          </tr>
+      
+          <tr>
+            <td>CPU-Intensive</td>
+            <td><code>stress-ng --cpu 2</code></td>
+            <td>High CPU load (2 cores fully utilised)</td>
+            <td>~284 MB used (no major change)</td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+          </tr>
+      
+          <tr>
+            <td>RAM-Intensive</td>
+            <td><code>stress-ng --vm 1 --vm-bytes 512M</code></td>
+            <td>Low–moderate</td>
+            <td>400 MB used / 950 MB free</td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+          </tr>
+      
+          <tr>
+            <td>Disk I/O</td>
+            <td><code>dd if=/dev/zero of=testfile</code></td>
+            <td>Moderate CPU load</td>
+            <td>No significant change</td>
+            <td>2.3 GB/s write throughput</td>
+            <td>–</td>
+            <td>–</td>
+          </tr>
+      
+          <tr>
+            <td>Network</td>
+            <td><code>ping 10.0.2.2</code></td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+            <td>–</td>
+            <td>avg 0.355 ms (min 0.199 ms, max 0.639 ms)</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
   </main>
 
   <footer>
