@@ -694,6 +694,43 @@
     <section>
       <h2>Week 7: Security Audit and System Evaluation</h2>
       <h4>12/12/2025</h4>
+      <p>In this phase, a comprehensive security audit was conducted to evaluate the
+        overall system configuration and identify any remaining weaknesses. The audit
+        combined automated security scanning, network analysis, access control
+        verification, and service auditing to assess the effectiveness of security
+        controls implemented in previous phases.</p>
+      <h3>Infrastructure Security Assessment (Lynis)</h3>
+      <p>Lynis was used to perform a detailed security audit of the operating system,
+        assessing kernel configuration, authentication settings, logging, and system
+        hardening measures. The audit was run before and after remediation to
+        demonstrate measurable security improvements.</p>
+      <pre><code>sudo apt install lynis -y sudo lynis audit system</code></pre>
+      <h3>Network Security Testing (nmap)</h3>
+      <p>Network exposure was assessed using nmap to identify open ports and confirm
+        that only essential services were accessible. This validated that firewall
+        rules and service hardening were correctly applied.</p>
+      <pre><code>nmap -sS -p- 127.0.0.1 nmap -sS -p 22 127.0.0.1</code></pre>
+      <h3>SSH Security Verification</h3>
+      <p>SSH configuration was manually verified to ensure password authentication was
+        disabled, key-based authentication was enforced, and root login was restricted.
+        This confirms secure remote administration practices are in place.</p>
+      <pre><code>sudo sshd -T | grep -E "passwordauthentication|pubkeyauthentication|permitrootlogin"</code></pre>
+      <h3>Access Control Verification (AppArmor)</h3>
+      <p>Mandatory Access Control was verified using AppArmor to ensure that active
+        security profiles were enforced, reducing the attack surface of system
+        services.</p>
+      <pre><code>sudo aa-status</code></pre>
+      <h3>Service Inventory and Justification</h3>
+      <p>All enabled and running services were reviewed to ensure they were necessary
+        for the server’s role. Non-essential services were identified and removed,
+        while critical services such as SSH, UFW, and Fail2Ban were retained.</p>
+      <pre><code>systemctl list-unit-files --type=service --state=enabled systemctl list-units --type=service --state=running</code></pre>
+      <h3>Risk Assessment</h3>
+      <p>The system demonstrates a strong security posture following hardening and
+        remediation. Remaining risks include potential zero-day vulnerabilities and
+        reliance on SSH for administration. These risks are mitigated through
+        restricted access, automated security updates, firewall controls, and
+        intrusion detection mechanisms.</p>
     </section>
   </main>
 
