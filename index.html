@@ -671,6 +671,15 @@
       <img src="Week6TestData1.png" alt="Test Data 1" align="middle" class="fixed-img">
       <img src="Week6TestData2.png" alt="Test Data 2" align="middle" class="fixed-img">
       <h3>Network Performance Analysis</h3>
+      <p>Network performance testing was carried out to measure both latency and throughput between the virtual machine and the host system. 
+        Latency was assessed using the <code>ping -c 20 10.0.2.2</code> command, which sent 20 ICMP echo requests to the host gateway and recorded a low and stable 
+        average round-trip time of approximately 0.327 ms with 0% packet loss, indicating reliable network connectivity. Network throughput was then evaluated using iperf3,
+        with the server started on the VM using <code>iperf3 -s</code> and the client connecting via the loopback interface using <code>iperf3 -c 127.0.0.1</code>. This approach was used due to VirtualBox NAT
+        networking limitations and allowed accurate testing of the operating system’s TCP/IP stack. The test achieved an average throughput of approximately 71.1 Gbit/s, 
+        demonstrating high network stack performance within the virtualised environment.</p>
+      <img src="Week6NetworkAnalysis1.png" alt="Network Analysis 1" align="middle" class="fixed-img">
+      <img src="Week6NetworkAnalysis2.png" alt="Network Analysis 2" align="middle" class="fixed-img">
+      <img src="Week6NetworkAnalysis3.png" alt="Network Analysis 3" align="middle" class="fixed-img">
       <h3>Optimisation Analysis</h3>
     </section>
   </main>
